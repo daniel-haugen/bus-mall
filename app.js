@@ -2,6 +2,7 @@
 
 
 const roundsToPlay = 2;
+let totalClicks = 0;
 
 function Product (name, imgSrc) {
   this.name = name ;
@@ -87,8 +88,17 @@ new Product('wineGlass', 'img/wine-glass.jpg');
 
 pickProducts();
 
+
+prodCtr.addEventListener('click', handleClickOnProduct);
+
+
 function handleClickOnProduct(event) {
-  
+  if(totalClicks < roundsToPlay) {
+    const thingWeClickedOn = event.target;
+    const id = thingWeClickedOn.id;
+    alert(id);
+
+  } 
 
 
 }
