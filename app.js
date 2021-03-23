@@ -64,26 +64,26 @@ function shuffle(array) {
 }
 
 
-new Product('bag', 'img/bag.jpg');
-new Product('banana', 'img/banana.jpg');
-new Product('bathroom', 'img/bathroom.jpg');
-new Product('boots', 'img/boots.jpg');
-new Product('breakfast', 'img/breakfast.jpg');
-new Product('bubblegum', 'img/bubblegum.jpg');
-new Product('chair', 'img/chair.jpg');
-new Product('cthulhu', 'img/cthulhu.jpg');
-new Product('dogDuck', 'img/dog-duck.jpg');
+new Product('Bag', 'img/bag.jpg');
+new Product('Banana', 'img/banana.jpg');
+new Product('Bathroom', 'img/bathroom.jpg');
+new Product('Boots', 'img/boots.jpg');
+new Product('Breakfast', 'img/breakfast.jpg');
+new Product('Bubblegum', 'img/bubblegum.jpg');
+new Product('Bhair', 'img/chair.jpg');
+new Product('Cthulhu', 'img/cthulhu.jpg');
+new Product('Dog-Duck', 'img/dog-duck.jpg');
 new Product('dragon', 'img/dragon.jpg');
-new Product('pen', 'img/pen.jpg');
-new Product('petSweep', 'img/pet-sweep.jpg');
-new Product('scissors', 'img/scissors.jpg');
-new Product('shark', 'img/shark.jpg');
-new Product('sweep', 'img/sweep.png');
-new Product('tauntaun', 'img/tauntaun.jpg');
-new Product('unicorn', 'img/unicorn.jpg');
-new Product('usb', 'img/usb.gif');
-new Product('waterCan', 'img/water-can.jpg');
-new Product('wineGlass', 'img/wine-glass.jpg');
+new Product('Pen', 'img/pen.jpg');
+new Product('Pet-Sweep', 'img/pet-sweep.jpg');
+new Product('Scissors', 'img/scissors.jpg');
+new Product('Shark', 'img/shark.jpg');
+new Product('Sweep', 'img/sweep.png');
+new Product('Tauntaun', 'img/tauntaun.jpg');
+new Product('Unicorn', 'img/unicorn.jpg');
+new Product('Usb', 'img/usb.gif');
+new Product('Water Can', 'img/water-can.jpg');
+new Product('Wine Glass', 'img/wine-glass.jpg');
 
 
 pickProducts();
