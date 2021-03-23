@@ -1,24 +1,33 @@
 'use strict';
 
-
-const roundsToPlay = 2;
-let totalClicks = 0;
-
+// Product Construction function
 function Product (name, imgSrc) {
-  this.name = name ;
+  this.name = name;
   this.url = imgSrc;
   this.timesShown = 0;
-
+  this.timesClicked = 0;
   Product.all.push(this);
 };
 
-//init product array
+
+
+//  Global Variables
+let lImg = null;
+let mImg = null;
+let rImg = null;
+const roundsToPlay = 4;
+let totalClicks = 0;
 Product.all = [];
 
-//init
-let leftProduct = null;
-let middleProduct = null;
-let rightProduct = null;
+
+
+//shuffle an array randomly
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
 
 
 // DOM Elements to update
@@ -32,40 +41,58 @@ const leftHeadingEl = document.getElementById('lHeading');
 const middleHeadingEl = document.getElementById('mHeading');
 const rightHeadingEl = document.getElementById('rHeading');
 
+
+
+// Pick Products function
 function pickProducts() {
+
+ const prevLeft = lImg;
+ const prevMiddle = mImg;
+ const prevRight = rImg;
+
   shuffle(Product.all);
-  leftProduct = Product.all[0];
-  middleProduct = Product.all[1];
-  rightProduct = Product.all[2];
+
+ for(let product of Product.all) {
+    if(product !== prevLeft && product !== prevMiddle && product !== prevRight) {
+      lImg = product;
+      break;
+    }
+  }
+
+  for (let product of Product.all) {
+    if (product !== prevLeft && product !== prevMiddle && product !== prevRight && product !== lImg) {
+      mImg = product;
+      break
+    }
+  }
+
+  for (let product of Product.all) {
+    if (product !== prevLeft && product !== prevMiddle && product !== prevRight && product !== lImg && product !== mImg) {
+      rImg = product;
+      break;
+    } 
+  }
+
   renderNewProducts();
 }
 
-
+// Render Products funtion
 const renderNewProducts = function () {
-  leftImageEl.src = leftProduct.url;
-  leftHeadingEl.textContent = leftProduct.name;
+  leftImageEl.src = lImg.url;
+  leftHeadingEl.textContent = lImg.name;
 
-  middleImageEl.src = middleProduct.url;
-  middleHeadingEl.textContent = middleProduct.name;
+  middleImageEl.src = mImg.url;
+  middleHeadingEl.textContent = mImg.name;
 
-  rightImageEl.src = rightProduct.url;
-  rightHeadingEl.textContent = rightProduct.name;
+  rightImageEl.src = rImg.url;
+  rightHeadingEl.textContent = rImg.name;
 
 }
 
 
-
-//shuffle an array randomly
-function shuffle(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    let j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-}
-
-
+// Create Products
 new Product('Bag', 'img/bag.jpg');
-new Product('Banana', 'img/banana.jpg');
+let banana = new Product('Banana', 'img/banana.jpg');
 new Product('Bathroom', 'img/bathroom.jpg');
 new Product('Boots', 'img/boots.jpg');
 new Product('Breakfast', 'img/breakfast.jpg');
@@ -85,23 +112,41 @@ new Product('Usb', 'img/usb.gif');
 new Product('Water Can', 'img/water-can.jpg');
 new Product('Wine Glass', 'img/wine-glass.jpg');
 
-
+// First function call
 pickProducts();
 
-
+//add event listener
 prodCtr.addEventListener('click', handleClickOnProduct);
 
 
+//event handler
 function handleClickOnProduct(event) {
   if(totalClicks < roundsToPlay) {
-    const thingWeClickedOn = event.target;
-    const id = thingWeClickedOn.id;
-    alert(id);
+    const productSelected = event.target;
+    const id = productSelected.id;
 
-  } 
+    if(id === 'lImage' || id === 'mImage' || id === 'rImage'  ) {
+      if(id === 'lImage') {
+        totalClicks++;
+        lImg.timesClicked++;
+        lImg.timesShown++;
+       
+      } else if (id === 'mImage') {
+        totalClicks++;
+        mImg.timesClicked++;
+        mImg.timesShown++;
+        
+      } else {
+        totalClicks++;
+        rImg.timesClicked++;
+        rImg.timesShown++;
+      }
+    }
+    pickProducts();
+  }
+} 
 
 
-}
 
 
 
