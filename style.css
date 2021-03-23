@@ -79,12 +79,17 @@ display: grid;
 place-items: center;
 }
 
-
 #product-ctr>figure>img {
 width: 300px;
 height: 300px;
 border: 8px solid black;
 border-radius: 20px;
+}
+
+h4 {
+  font-size: 2em;
+  font-weight: bold;
+  font-family: helvetica;
 }
 
 
