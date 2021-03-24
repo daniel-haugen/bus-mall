@@ -15,19 +15,33 @@ function Product (name, imgSrc) {
 let lImg = null;
 let mImg = null;
 let rImg = null;
-const roundsToPlay = 4;
+const roundsToPlay = 25;
 let totalClicks = 0;
 Product.all = [];
 
 
 
-//shuffle an array randomly
+
+//shuffle an array randomly and Create Element functions
 function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
     let j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];
   }
 }
+
+function createEl(tag, parent, id, text,) {
+  const el = document.createElement(tag);
+  parent.appendChild(el);
+  if(id !== undefined) {
+    el.id = id;
+  }
+  if (text !== undefined) {
+    el.textContent = text;
+  } 
+  return el;
+}
+
 
 
 // DOM Elements to update
@@ -124,27 +138,55 @@ function handleClickOnProduct(event) {
   if(totalClicks < roundsToPlay) {
     const productSelected = event.target;
     const id = productSelected.id;
+    lImg.timesShown++;
+    mImg.timesShown++;
+    rImg.timesShown++;
 
     if(id === 'lImage' || id === 'mImage' || id === 'rImage'  ) {
       if(id === 'lImage') {
         totalClicks++;
         lImg.timesClicked++;
-        lImg.timesShown++;
        
       } else if (id === 'mImage') {
         totalClicks++;
         mImg.timesClicked++;
-        mImg.timesShown++;
         
       } else {
         totalClicks++;
         rImg.timesClicked++;
-        rImg.timesShown++;
       }
     }
-    pickProducts();
+
+    if(totalClicks < roundsToPlay) {
+      pickProducts();
+  } else {
+    prodCtr.removeEventListener('click', handleClickOnProduct);
+    alert('yo you\'re done');
+   
+    renderButton();
+    // butt.removeEventListener('click', renderResults);
+    const butt = document.getElementById('viewResults');
+    console.log(butt);
+    butt.addEventListener('click', renderResults);
+   
   }
 } 
+}
+
+const resultsSection = document.getElementById('resultList');
+
+function renderResults() {
+  for (let product of Product.all) {
+    createEl('li', resultsSection, undefined, `${product.name} was shown ${product.timesShown} times and selected ${product.timesClicked}.`)
+  }
+  const butt = document.getElementById('viewResults');
+  butt.removeEventListener('click', renderResults);
+}
+
+function renderButton() {
+  createEl('button', resultsSection, 'viewResults', 'View Results');
+}
+
 
 
 
