@@ -15,7 +15,7 @@ function Product (name, imgSrc) {
 let lImg = null;
 let mImg = null;
 let rImg = null;
-const roundsToPlay = 25;
+const roundsToPlay = 5; // DANGER DANGER DANGER
 let totalClicks = 0;
 Product.all = [];
 
@@ -87,11 +87,14 @@ function pickProducts() {
     } 
   }
 
-  renderNewProducts();
+  for (let product of Product.all) {
+    product.render();
+  }
 }
 
 // Render Products funtion
-const renderNewProducts = function () {
+
+Product.prototype.render = function () {
   leftImageEl.src = lImg.url;
   leftHeadingEl.textContent = lImg.name;
 
@@ -100,8 +103,20 @@ const renderNewProducts = function () {
 
   rightImageEl.src = rImg.url;
   rightHeadingEl.textContent = rImg.name;
-
 }
+
+
+// const renderNewProducts = function () {
+//   leftImageEl.src = lImg.url;
+//   leftHeadingEl.textContent = lImg.name;
+
+//   middleImageEl.src = mImg.url;
+//   middleHeadingEl.textContent = mImg.name;
+
+//   rightImageEl.src = rImg.url;
+//   rightHeadingEl.textContent = rImg.name;
+
+// }
 
 
 // Create Products
