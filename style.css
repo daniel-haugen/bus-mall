@@ -22,11 +22,7 @@ font-family: yellowtail, cursive;
 color: rgb(255, 166, 34);
 text-shadow: 3px 3px black;
 margin-left: 20px;
-
 }
-
-
-
 
 main {
   background-color: lightcoral;
@@ -51,6 +47,10 @@ line-height: 1.5;
 }
 .results>ul{
   font-size: 1.4em;
+}
+
+.results>ul>li {
+  font-size: .8em;
 }
 
 
