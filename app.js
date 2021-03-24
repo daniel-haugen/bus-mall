@@ -168,7 +168,6 @@ function handleClickOnProduct(event) {
     const butt = document.getElementById('viewResults');
     console.log(butt);
     butt.addEventListener('click', renderResults);
-   
   }
 } 
 }
