@@ -119,10 +119,10 @@ new Product('Bathroom', 'img/bathroom.jpg');
 new Product('Boots', 'img/boots.jpg');
 new Product('Breakfast', 'img/breakfast.jpg');
 new Product('Bubblegum', 'img/bubblegum.jpg');
-new Product('Bhair', 'img/chair.jpg');
+new Product('Chair', 'img/chair.jpg');
 new Product('Cthulhu', 'img/cthulhu.jpg');
 new Product('Dog-Duck', 'img/dog-duck.jpg');
-new Product('dragon', 'img/dragon.jpg');
+new Product('Dragon', 'img/dragon.jpg');
 new Product('Pen', 'img/pen.jpg');
 new Product('Pet-Sweep', 'img/pet-sweep.jpg');
 new Product('Scissors', 'img/scissors.jpg');
@@ -130,13 +130,13 @@ new Product('Shark', 'img/shark.jpg');
 new Product('Sweep', 'img/sweep.png');
 new Product('Tauntaun', 'img/tauntaun.jpg');
 new Product('Unicorn', 'img/unicorn.jpg');
-new Product('Usb', 'img/usb.gif');
+new Product('USB', 'img/usb.gif');
 new Product('Water Can', 'img/water-can.jpg');
 new Product('Wine Glass', 'img/wine-glass.jpg');
 
 // First function call
 pickProducts();
-renderChart();
+
 
 //add event listener
 prodCtr.addEventListener('click', handleClickOnProduct);
@@ -168,7 +168,7 @@ function handleClickOnProduct(event) {
     } else {
       prodCtr.removeEventListener('click', handleClickOnProduct);
       alert('yo you\'re done');
-
+      setLocalStorage();
       renderButton();
 
       butt = document.getElementById('viewResults');
@@ -176,6 +176,8 @@ function handleClickOnProduct(event) {
     }
   }
 }
+
+
 
 function renderResults() {
   for (let product of Product.all) {
@@ -186,36 +188,68 @@ function renderResults() {
       `${product.name} was shown ${product.timesShown} times and selected ${product.timesClicked}.`
     );
   }
+  // renderChart();
   butt.removeEventListener('click', renderResults);
 }
-
-
 
 function renderButton() {
   createEl('button', resultsSection, 'viewResults', 'View Results');
 }
 
+
+//Put in Local Storage
+
+function setLocalStorage() {
+  const arrSelected = [];
+  const arrViews = [];
+  const arrName = [];
+
+  for (let product of Product.all) {
+    arrSelected.push(product.timesClicked);
+    arrViews.push(product.timesShown);
+    arrName.push(product.name);
+  }
+  let selections = JSON.stringify(arrSelected);
+  let names = JSON.stringify(arrName);
+  let views = JSON.stringify(arrViews);
+  window.localStorage.setItem('name', names);
+  window.localStorage.setItem('selections', selections);
+  window.localStorage.setItem('views', views);
+}
+
+//Get out of Local Storage
+
+function getLocalStorage() {
+  let selections = JSON.parse(window.localStorage.getItem('selections'));
+  let names = JSON.parse(window.localStorage.getItem('name'));
+  let views = JSON.parse(window.localStorage.getItem('views'));
+}
+
+
+
 function renderChart() {
-  var ctx = document.getElementById('chart').getContext('2d');
-  new Chart(ctx, {
-    // The type of chart we want to create
-    type: 'line',
+  // const arrSelected = [];
+  // const arrViews = [];
+  // const arrName = [];
 
-    // The data for our dataset
+  // for (let product of Product.all) {
+  //   arrSelected.push(product.timesClicked);
+  //   arrViews.push(product.timesShown);
+  //   arrName.push(product.name);
+  // }
+
+  const ctx = document.getElementById('chart').getContext('2d');
+  var myBarChart = new Chart(ctx, {
+    type: 'bar',
     data: {
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-      datasets: [
-        {
-          label: 'My First dataset',
-          backgroundColor: 'rgb(255, 99, 132)',
-          borderColor: 'rgb(255, 99, 132)',
-          data: [0, 10, 5, 2, 20, 30, 45],
-        },
-      ],
+      labels: arrName,
+      datasets: [{
+        label: 'Times Selected',
+        data: arrSelected,
+        backgroundColor: 'rgb(255, 99, 132)'
+      }],
     },
-
-    // Configuration options go here
-    options: {},
+    options: {}
   });
 }
 
