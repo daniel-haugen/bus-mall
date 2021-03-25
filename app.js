@@ -112,29 +112,10 @@ Product.prototype.render = function () {
   rightHeadingEl.textContent = rImg.name;
 };
 
-// Create Products
-new Product('Bag', 'img/bag.jpg');
-new Product('Banana', 'img/banana.jpg');
-new Product('Bathroom', 'img/bathroom.jpg');
-new Product('Boots', 'img/boots.jpg');
-new Product('Breakfast', 'img/breakfast.jpg');
-new Product('Bubblegum', 'img/bubblegum.jpg');
-new Product('Chair', 'img/chair.jpg');
-new Product('Cthulhu', 'img/cthulhu.jpg');
-new Product('Dog-Duck', 'img/dog-duck.jpg');
-new Product('Dragon', 'img/dragon.jpg');
-new Product('Pen', 'img/pen.jpg');
-new Product('Pet-Sweep', 'img/pet-sweep.jpg');
-new Product('Scissors', 'img/scissors.jpg');
-new Product('Shark', 'img/shark.jpg');
-new Product('Sweep', 'img/sweep.png');
-new Product('Tauntaun', 'img/tauntaun.jpg');
-new Product('Unicorn', 'img/unicorn.jpg');
-new Product('USB', 'img/usb.gif');
-new Product('Water Can', 'img/water-can.jpg');
-new Product('Wine Glass', 'img/wine-glass.jpg');
+
 
 // First function call
+getLocalStorage();
 pickProducts();
 
 
@@ -200,29 +181,50 @@ function renderButton() {
 //Put in Local Storage
 
 function setLocalStorage() {
-  const arrSelected = [];
-  const arrViews = [];
-  const arrName = [];
+  const arr = [];
 
   for (let product of Product.all) {
-    arrSelected.push(product.timesClicked);
-    arrViews.push(product.timesShown);
-    arrName.push(product.name);
+    arr.push(Product.all);
   }
-  let selections = JSON.stringify(arrSelected);
-  let names = JSON.stringify(arrName);
-  let views = JSON.stringify(arrViews);
-  window.localStorage.setItem('name', names);
-  window.localStorage.setItem('selections', selections);
-  window.localStorage.setItem('views', views);
+  let answers = JSON.stringify(arr);
+  localStorage.setItem('storageKey', answers);
+
 }
 
 //Get out of Local Storage
 
 function getLocalStorage() {
-  let selections = JSON.parse(window.localStorage.getItem('selections'));
-  let names = JSON.parse(window.localStorage.getItem('name'));
-  let views = JSON.parse(window.localStorage.getItem('views'));
+  const votes = localStorage.getItem('storageKey');
+  if(votes !== null) {
+    let parsedVotes = JSON.parse(votes);
+    for (let productData of parsedVotes) {
+      let newProduct = new Product(productData.name, productData.url);
+      newProduct.timesClicked = productData.timesClicked;
+      newProduct.timesShown = productData.timesShown;
+    }
+  } else {
+    // Create Products
+    new Product('Bag', 'img/bag.jpg');
+    new Product('Banana', 'img/banana.jpg');
+    new Product('Bathroom', 'img/bathroom.jpg');
+    new Product('Boots', 'img/boots.jpg');
+    new Product('Breakfast', 'img/breakfast.jpg');
+    new Product('Bubblegum', 'img/bubblegum.jpg');
+    new Product('Chair', 'img/chair.jpg');
+    new Product('Cthulhu', 'img/cthulhu.jpg');
+    new Product('Dog-Duck', 'img/dog-duck.jpg');
+    new Product('Dragon', 'img/dragon.jpg');
+    new Product('Pen', 'img/pen.jpg');
+    new Product('Pet-Sweep', 'img/pet-sweep.jpg');
+    new Product('Scissors', 'img/scissors.jpg');
+    new Product('Shark', 'img/shark.jpg');
+    new Product('Sweep', 'img/sweep.png');
+    new Product('Tauntaun', 'img/tauntaun.jpg');
+    new Product('Unicorn', 'img/unicorn.jpg');
+    new Product('USB', 'img/usb.gif');
+    new Product('Water Can', 'img/water-can.jpg');
+    new Product('Wine Glass', 'img/wine-glass.jpg');
+  }
 }
 
 
