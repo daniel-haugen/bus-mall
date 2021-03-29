@@ -1,3 +1,5 @@
+
+
 'use strict';
 
 // Product Construction function
@@ -169,7 +171,7 @@ function renderResults() {
       `${product.name} was shown ${product.timesShown} times and selected ${product.timesClicked}.`
     );
   }
-  // renderChart();
+  renderChart();
   butt.removeEventListener('click', renderResults);
 }
 
@@ -230,9 +232,9 @@ function getLocalStorage() {
 
 
 function renderChart() {
-  // const arrSelected = [];
+  const arrSelected = [];
   // const arrViews = [];
-  // const arrName = [];
+  const arrName = [];
 
   // for (let product of Product.all) {
   //   arrSelected.push(product.timesClicked);
