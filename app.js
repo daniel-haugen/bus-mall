@@ -233,14 +233,14 @@ function getLocalStorage() {
 
 function renderChart() {
   const arrSelected = [];
-  // const arrViews = [];
+  const arrViews = [];
   const arrName = [];
 
-  // for (let product of Product.all) {
-  //   arrSelected.push(product.timesClicked);
-  //   arrViews.push(product.timesShown);
-  //   arrName.push(product.name);
-  // }
+  for (let product of Product.all) {
+    arrSelected.push(product.timesClicked);
+    arrViews.push(product.timesShown);
+    arrName.push(product.name);
+  }
 
   const ctx = document.getElementById('chart').getContext('2d');
   var myBarChart = new Chart(ctx, {
